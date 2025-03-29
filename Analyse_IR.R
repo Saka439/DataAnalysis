@@ -1,8 +1,12 @@
+#Je charge les donnees a l'aide de mon matricule 2184805
+mondata <- charger(2184805)
+
 #Histogramme de Tukey
 hist(mondata$IR, main="Histogramme de l'indice de Rugosité", xlab="IR", col = "skyblue",border = "black",xlim = c(0, max(mondata$IR)))
 
 #Diagramme de Tukey
 boxplot(mondata$IR, main="Boxplot de l'indice de Rugosité", xlab="IR" ,col = "purple", horizontal = TRUE)
+
 
 
 # Normal Probability Plot (droite de Henry)
