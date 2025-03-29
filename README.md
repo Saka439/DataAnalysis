@@ -31,4 +31,4 @@ Ouvrez un terminal R dans VS Code (`Ctrl+Shift+``) et exécutez :
 install.packages("languageserver")
 
 4. Pour tester le code on doit le faire ligne par ligne en utilisant les commandes : 
-        """Ctrl et Enter simultanément"""
+        Ctrl et Enter simultanément
