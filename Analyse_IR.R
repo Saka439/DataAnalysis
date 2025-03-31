@@ -137,3 +137,5 @@ cat("Matériau 0 (p-value):", shapiro_m0$p.value, "\n")
 cat("Matériau 1 (p-value):", shapiro_m1$p.value, "\n")
 
 par(mfrow = c(1, 1))
+
+#Phase 2
