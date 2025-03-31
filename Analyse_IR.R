@@ -17,8 +17,8 @@ hist(mondata$IR,
 
 
 #Diagramme de Tukey
-boxplot(mondata$IR, main = "Boxplot de l'indice de Rugosité", 
-xlab = "Indice de Rugosité", col = "purple", horizontal = TRUE)
+boxplot(mondata$IR, main = "Boxplot de l'indice de Rugosité",
+        xlab = "Indice de Rugosité", col = "purple", horizontal = TRUE)
 
 
 # Normal Probability Plot (droite de Henry)
@@ -31,14 +31,16 @@ shapiro.test(mondata$IR)
 moyenne <- mean(mondata$IR)
 mediane <- median(mondata$IR)
 variance <- var(mondata$IR)
-ecart_type <- sd(mondata$IR) 
+ecart_type <- sd(mondata$IR)
 coefficient_variation <- ecart_type / variance
 
-cat('moyenne = ', moyenne, ', médiane = ', mediane, ', variance = ', variance ,', écart-type = ', ecart_type, ', coefficient de variation = ', coefficient_variation)
+cat("moyenne =", moyenne,
+    ", médiane =", mediane,
+    ", variance = ", variance,
+    ", écart-type =", ecart_type,
+    ", coefficient de variation = ", coefficient_variation)
 
-summary(mondata$IR)  
-
-
+summary(mondata$IR)
 
 n <- length(mondata$IR)
 moyenne <- mean(mondata$IR)
@@ -49,4 +51,3 @@ t_critique <- qt(1 - alpha / 2, df = n - 1)
 ic_lower <- moyenne - t_critique * se
 ic_upper <- moyenne + t_critique * se
 c(ic_lower, ic_upper)
-
