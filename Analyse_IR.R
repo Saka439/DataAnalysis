@@ -179,7 +179,7 @@ modele2 <- lm(log_IR ~ log_V, data = mondata)
 analyser_modele(modele2, "Modèle 2: ln(Y) = ln(β0) + β1*ln(V) + ε")
 
 # Modèle 3: Exponentiel en V (Y = β0*e^(β1*V + ε))
-# Transformation logarithmique
+# Transformation logarithmique afin de linéariser
 modele3 <- lm(log_IR ~ V, data = mondata)
 analyser_modele(modele3, "Modèle 3: ln(Y) = ln(β0) + β1*V + ε")
 
@@ -188,7 +188,7 @@ modele4 <- lm(IR ~ T, data = mondata)
 analyser_modele(modele4, "Modèle 4: Y = β0 + β1*T + ε")
 
 # Modèle 5: Puissance en T (Y = β0*T^β1*e^ε)
-# Transformation logarithmique
+# Transformation logarithmique afin de linéariser
 mondata$log_T <- log(mondata$T)
 modele5 <- lm(log_IR ~ log_T, data = mondata)
 analyser_modele(modele5, "Modèle 5: ln(Y) = ln(β0) + β1*ln(T) + ε")
