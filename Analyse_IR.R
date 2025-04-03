@@ -138,4 +138,69 @@ cat("Matériau 1 (p-value):", shapiro_m1$p.value, "\n")
 
 par(mfrow = c(1, 1))
 
-#Phase 2
+#Phase 2: Effectuons l'ajustement,
+#testons la signification du modèle
+# et effectuons une analyse
+# des residus , donnons un intervalle de confiance
+# pour chacun des params bêta0 et bêta1:
+
+# Fonction pour analyser un modèle linéaire standard
+analyser_modele <- function(modele, nom_modele) {
+  # 1. Ajustement du modèle et coefficients
+  cat("\n\n====", nom_modele, "====\n")
+  print(summary(modele))
+  # 2. ANOVA
+  cat("\nTableau ANOVA:\n")
+  print(anova(modele))
+  # 3. Intervalles de confiance des paramètres
+  cat("\nIntervalles de confiance à 95%:\n")
+  print(confint(modele))
+  # 4. Analyse des résidus
+  par(mfrow = c(2, 2))
+  plot(modele, which = c(1, 2, 5))
+  title(paste("Diagnostics pour", nom_modele), line = -1, outer = TRUE)
+  par(mfrow = c(1, 1))
+  # Test de normalité des résidus
+  shapiro_res <- shapiro.test(residuals(modele))
+  cat("\nTest de normalité des résidus (Shapiro-Wilk): p-value =", 
+      shapiro_res$p.value, "\n")
+}
+
+
+# Modèle 1: Linéaire en V
+modele1 <- lm(IR ~ V, data = mondata)
+analyser_modele(modele1, "Modèle 1: Y = β0 + β1*V + ε")
+
+# Modèle 2: Puissance en V (Y = β0*V^β1*e^ε)
+# Transformation logarithmique pour linéarisation
+mondata$log_IR <- log(mondata$IR)
+mondata$log_V <- log(mondata$V)
+modele2 <- lm(log_IR ~ log_V, data = mondata)
+analyser_modele(modele2, "Modèle 2: ln(Y) = ln(β0) + β1*ln(V) + ε")
+
+# Modèle 3: Exponentiel en V (Y = β0*e^(β1*V + ε))
+# Transformation logarithmique
+modele3 <- lm(log_IR ~ V, data = mondata)
+analyser_modele(modele3, "Modèle 3: ln(Y) = ln(β0) + β1*V + ε")
+
+# Modèle 4: Linéaire en T
+modele4 <- lm(IR ~ T, data = mondata)
+analyser_modele(modele4, "Modèle 4: Y = β0 + β1*T + ε")
+
+# Modèle 5: Puissance en T (Y = β0*T^β1*e^ε)
+# Transformation logarithmique
+mondata$log_T <- log(mondata$T)
+modele5 <- lm(log_IR ~ log_T, data = mondata)
+analyser_modele(modele5, "Modèle 5: ln(Y) = ln(β0) + β1*ln(T) + ε")
+
+# Modèle 6: Exponentiel en T (Y = β0*e^(β1*T + ε))
+modele6 <- lm(log_IR ~ T, data = mondata)
+analyser_modele(modele6, "Modèle 6: ln(Y) = ln(β0) + β1*T + ε")
+
+# Nettoyage des variables temporaires
+mondata$log_IR <- NULL
+mondata$log_V <- NULL
+mondata$log_T <- NULL
+
+# Comparaison des AIC (plus petit = meilleur)
+AIC(modele1, modele2, modele3, modele4, modele5, modele6)
