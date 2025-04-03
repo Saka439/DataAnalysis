@@ -255,7 +255,7 @@ lines(t_range, pred_ir, col = "red", lwd = 2)
 
 # 3. Lignes de référence pour T = 40°C
 abline(v = 40, lty = 2, col = "black")  # Ligne verticale pointillée
-abline(h = IR_pred, lty = 1, col = "blue")  # Ligne horizontale pleine (prédiction)
+abline(h = IR_pred, lty = 1, col = "blue") # Ligne horizontale pleine (prédiction)
 abline(h = IC_lower, lty = 3, col = "blue")  # Ligne pointillée (IC bas)
 abline(h = IC_upper, lty = 3, col = "blue")  # Ligne pointillée (IC haut)
 
@@ -272,3 +272,6 @@ legend("topleft",
        lty = c(NA, 1, 2, 3),
        lwd = c(NA, 2, 1, 1),
        bty = "n")
+
+
+
